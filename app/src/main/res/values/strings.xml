@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">DemoRoomDB</string>
+    <string name="button_save">Connect</string>
+    <string name="hint_word">Tablet ID</string>
+    <string name="hint_port">Tablet Port</string>
+    <string name="hint_ipaddress">IP Address</string>
+    <string name="username">"Username "</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="userNameError">Username is error</string>
+    <string name="passwordError">Password is invalid</string>
+</resources>
