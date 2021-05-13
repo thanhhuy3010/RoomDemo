@@ -16,7 +16,7 @@ public class Employee {
     private String fullName;
 
     @ColumnInfo(name = "phoneNumber")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @ColumnInfo(name = "role")
     private String role;
@@ -27,7 +27,7 @@ public class Employee {
     @ColumnInfo(name = "gender")
     private String gender;
 
-    public Employee(String userName, String fullName, int phoneNumber, String role, int age, String gender) {
+    public Employee(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
         this.userName = userName;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
@@ -60,11 +60,11 @@ public class Employee {
         this.fullName = fullName;
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

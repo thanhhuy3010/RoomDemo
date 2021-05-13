@@ -4,9 +4,17 @@
     <string name="hint_word">Tablet ID</string>
     <string name="hint_port">Tablet Port</string>
     <string name="hint_ipaddress">IP Address</string>
+    <string name="hint_name">Full Name</string>
     <string name="username">"Username "</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="userNameError">Username is error</string>
     <string name="passwordError">Password is invalid</string>
+    <string name="addItem">Add Data</string>
+    <string name="hint_gender">Gender</string>
+    <string name="hint_phone">Phone number</string>
+    <string name="hint_role">Role</string>
+    <string name="hint_age">Age</string>
+    <string name="cancel">Cancel</string>
+
 </resources>

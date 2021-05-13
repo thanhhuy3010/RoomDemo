@@ -33,7 +33,6 @@ public class EmployeeViewModel extends AndroidViewModel {
     public void deleteAll() {
         repository.deleteAll();
     }
-    public LiveData<List<Employee>> getAllEmployee() {
-        return allEmployee;
-    }
+
+    public LiveData<List<Employee>> getAllEmployee() { return allEmployee; }
 }

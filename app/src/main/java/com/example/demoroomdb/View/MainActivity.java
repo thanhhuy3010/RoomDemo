@@ -1,11 +1,15 @@
 package com.example.demoroomdb.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         edtUsername = findViewById(R.id.edt_username);
         edtPassword = findViewById(R.id.edt_password);
         btnLogin = findViewById(R.id.btn_login);
+        loginHandler();
     }
 
     private void loginHandler() {
@@ -88,4 +93,5 @@ public class MainActivity extends AppCompatActivity {
             edtUsername.setText(configSharedPref.getStringData("username"));
         }
     }
+
 }

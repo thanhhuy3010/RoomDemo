@@ -9,7 +9,6 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.demoroomdb.Entity.Employee;
-import com.example.demoroomdb.Entity.Tablet;
 
 import java.util.List;
 @Dao
