@@ -27,6 +27,4 @@ public interface EmployeeDao {
 
     @Query("DELETE FROM employeeTable")
     void deleteAll();
-
-
 }
