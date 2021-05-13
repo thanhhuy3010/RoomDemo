@@ -7,7 +7,7 @@
  */
 //********************************************************************************************
 
-package com.example.demoroomdb.Common.SharePreference;
+package com.example.demoroomdb.model.Common.SharePreference;
 
 import android.content.Context;
 import android.content.SharedPreferences;

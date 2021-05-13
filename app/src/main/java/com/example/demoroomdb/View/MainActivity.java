@@ -1,28 +1,18 @@
 package com.example.demoroomdb.View;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.demoroomdb.Common.SharePreference.ConfigSharedPref;
-import com.example.demoroomdb.Common.Logger.LoggerManager;
-import com.example.demoroomdb.Entity.Employee;
+import com.example.demoroomdb.model.Common.SharePreference.ConfigSharedPref;
+import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.R;
-import com.example.demoroomdb.ViewModel.EmployeeViewModel;
-
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 

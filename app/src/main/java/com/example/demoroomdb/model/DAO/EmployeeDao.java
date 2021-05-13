@@ -1,4 +1,4 @@
-package com.example.demoroomdb.DAO;
+package com.example.demoroomdb.model.DAO;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
@@ -8,7 +8,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.demoroomdb.Entity.Employee;
+import com.example.demoroomdb.model.Entity.Employee;
 
 import java.util.List;
 @Dao

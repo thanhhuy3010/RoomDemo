@@ -5,7 +5,7 @@
 //import androidx.lifecycle.AndroidViewModel;
 //import androidx.lifecycle.LiveData;
 //
-//import com.example.demoroomdb.Entity.Tablet;
+//import com.example.demoroomdb.model.Entity.Tablet;
 //import com.example.demoroomdb.TabletRepository;
 //
 //import java.util.List;

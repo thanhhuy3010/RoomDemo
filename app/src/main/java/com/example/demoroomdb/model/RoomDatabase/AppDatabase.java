@@ -1,4 +1,4 @@
-package com.example.demoroomdb.RoomDatabase;
+package com.example.demoroomdb.model.RoomDatabase;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -9,8 +9,8 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.demoroomdb.DAO.EmployeeDao;
-import com.example.demoroomdb.Entity.Employee;
+import com.example.demoroomdb.model.DAO.EmployeeDao;
+import com.example.demoroomdb.model.Entity.Employee;
 
 @Database(entities = {Employee.class}, version = 1,exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

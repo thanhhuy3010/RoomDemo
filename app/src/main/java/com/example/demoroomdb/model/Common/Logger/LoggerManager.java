@@ -4,7 +4,7 @@
  * <p>
  * Copyright(C) Hitachi Information & Communication Engineering, Ltd. 2020. All Rights Reserved.
  */
-package com.example.demoroomdb.Common.Logger;
+package com.example.demoroomdb.model.Common.Logger;
 
 import android.content.Context;
 import android.util.Log;
