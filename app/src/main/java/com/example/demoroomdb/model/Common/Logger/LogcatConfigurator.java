@@ -1,5 +1,5 @@
 
-package com.example.demoroomdb.Common.Logger;
+package com.example.demoroomdb.model.Common.Logger;
 
 public class LogcatConfigurator {
   private final long maxFileSize = 5120;

@@ -10,7 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demoroomdb.Entity.Employee;
+import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
 
 import java.util.List;

@@ -14,8 +14,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.demoroomdb.Common.Logger.LoggerManager;
-import com.example.demoroomdb.Entity.Employee;
+import com.example.demoroomdb.model.Common.Logger.LoggerManager;
+import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.ViewModel.EmployeeViewModel;
 

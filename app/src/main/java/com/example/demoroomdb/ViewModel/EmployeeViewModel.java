@@ -6,8 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.demoroomdb.EmployeeRepository;
-import com.example.demoroomdb.Entity.Employee;
+import com.example.demoroomdb.model.EmployeeRepository;
+import com.example.demoroomdb.model.Entity.Employee;
 
 import java.util.List;
 

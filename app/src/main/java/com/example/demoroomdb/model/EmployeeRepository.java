@@ -1,13 +1,13 @@
-package com.example.demoroomdb;
+package com.example.demoroomdb.model;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.demoroomdb.DAO.EmployeeDao;
-import com.example.demoroomdb.Entity.Employee;
-import com.example.demoroomdb.RoomDatabase.AppDatabase;
+import com.example.demoroomdb.model.DAO.EmployeeDao;
+import com.example.demoroomdb.model.Entity.Employee;
+import com.example.demoroomdb.model.RoomDatabase.AppDatabase;
 
 import java.util.List;
 

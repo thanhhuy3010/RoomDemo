@@ -1,4 +1,4 @@
-package com.example.demoroomdb.Entity;
+package com.example.demoroomdb.model.Entity;
 
 
 import androidx.annotation.NonNull;
