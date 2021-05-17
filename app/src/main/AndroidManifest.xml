@@ -9,9 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".View.EmployeeActivity"></activity>
-        <activity android:name=".View.NewTabletActivity" />
+        <activity
+            android:name=".View.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".View.EmployeeActivity"></activity>
+        <activity android:name=".View.EmployeeActivity"
+             />
         <activity android:name=".View.MainActivity">
+            
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

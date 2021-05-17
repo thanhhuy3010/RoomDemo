@@ -8,10 +8,12 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
@@ -44,6 +46,8 @@ public class DialogAddContact extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
+
     }
 
     @Nullable
@@ -62,6 +66,7 @@ public class DialogAddContact extends DialogFragment {
         String title = getArguments().getString(TITLE_INSTANCE);
         getDialog().setTitle(title);
         txtFullName.requestFocus();
+
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
     private void initField(View view) {
@@ -83,12 +88,18 @@ public class DialogAddContact extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        btnAdd.setOnClickListener(v -> {
-            employeeViewModel.insert(new Employee(txtFullName.getText().toString(), txtUserName.getText().toString(),
-                    null,null,0,null));
-            dismiss();
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtFullName.getText().toString().matches("")) {
+                    Toast.makeText(getActivity(), "Data is incorrect please check it before add",Toast.LENGTH_SHORT).show();
+                } else {
+                    employeeViewModel.insert(new Employee(txtUserName.getText().toString(),txtFullName.getText().toString(),
+                            txtPhone.getText().toString(),txtRole.getText().toString(),0,txtGender.getText().toString()));
+                    dismiss();
+                }
+
+            }
         });
     }
-
-
 }

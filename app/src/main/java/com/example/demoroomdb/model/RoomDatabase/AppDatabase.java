@@ -2,6 +2,7 @@ package com.example.demoroomdb.model.RoomDatabase;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -19,9 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public static synchronized AppDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
             INSTANCE = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class,"appDB.db")
-                    .fallbackToDestructiveMigration()
-                        .addCallback(roomCallback)
-                        .build();
+                    .fallbackToDestructiveMigration().build();
         }
         return INSTANCE;
     }
@@ -34,14 +33,21 @@ public abstract class AppDatabase extends RoomDatabase {
         }
     };
 
-    private static class PopulateAsyncTask extends AsyncTask<Void, Void, Void> {
+    private static class PopulateAsyncTask extends AsyncTask<Employee, Void, Void> {
         private EmployeeDao dao;
         private PopulateAsyncTask(AppDatabase appDatabase) {
             dao = appDatabase.employeeDao();
         }
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+////            dao.delete(new Employee("huy.ht","Tran Thanh Huy", "0916631422","",12,"Male"));
+//            return null;
+//
+
         @Override
-        protected Void doInBackground(Void... voids) {
-            dao.insert(new Employee("huy.ht","Tran Thanh Huy", "0916631422","",12,"Male"));
+        protected Void doInBackground(Employee... employees) {
+            Log.d("App DB", "Delete data : " + employees[employees.length-1]);
+//            dao.delete(employees[employees.length-1]);
             return null;
         }
     }

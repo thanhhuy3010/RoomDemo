@@ -27,6 +27,8 @@ public class Employee {
     @ColumnInfo(name = "gender")
     private String gender;
 
+    private static Employee INSTANCE;
+
     public Employee(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
         this.userName = userName;
         this.fullName = fullName;
@@ -34,6 +36,13 @@ public class Employee {
         this.role = role;
         this.age = age;
         this.gender = gender;
+    }
+
+    public static synchronized Employee getInstance(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
+        if ( INSTANCE == null) {
+            INSTANCE = new Employee(userName, fullName, phoneNumber,role, age, gender);
+        }
+        return INSTANCE;
     }
 
     public int getIdUser() {

@@ -25,8 +25,9 @@ android {
 
 dependencies {
     def room_version = "2.2.5"
-
+    implementation 'com.google.android.material:material:1.2.1'
     implementation "androidx.room:room-runtime:$room_version"
+    implementation 'androidx.preference:preference:1.1.0-rc01'
     annotationProcessor "androidx.room:room-compiler:$room_version"
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation "androidx.room:room-ktx:$room_version"

@@ -51,6 +51,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return itemColumn.size();
     }
 
+    public Employee getPosition(int position) {
+        // Use that to access the affected item in mWordList.
+        return itemColumn.get(position);
+    }
+
     // inner class
     class ListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -83,7 +88,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         }
     }
     public void setEmployee(List<Employee> employee) {
-        itemColumn = employee;
+        this.itemColumn = employee;
         notifyDataSetChanged();
     }
 
