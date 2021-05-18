@@ -19,7 +19,7 @@ import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.ViewModel.EmployeeViewModel;
 
-public class DialogAddContact extends DialogFragment {
+public class DialogAddContact extends DialogFragment implements View.OnClickListener {
     /**
      * Declare variable in dialog
      */
@@ -66,8 +66,8 @@ public class DialogAddContact extends DialogFragment {
         String title = getArguments().getString(TITLE_INSTANCE);
         getDialog().setTitle(title);
         txtFullName.requestFocus();
-
         getDialog().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
+        btnAdd.setOnClickListener(this);
     }
     private void initField(View view) {
         txtFullName = view.findViewById(R.id.txt_your_name);
@@ -88,9 +88,13 @@ public class DialogAddContact extends DialogFragment {
     @Override
     public void onResume() {
         super.onResume();
-        btnAdd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_save:
                 if (txtFullName.getText().toString().matches("")) {
                     Toast.makeText(getActivity(), "Data is incorrect please check it before add",Toast.LENGTH_SHORT).show();
                 } else {
@@ -98,8 +102,12 @@ public class DialogAddContact extends DialogFragment {
                             txtPhone.getText().toString(),txtRole.getText().toString(),0,txtGender.getText().toString()));
                     dismiss();
                 }
-
-            }
-        });
+                break;
+            case R.id.btn_cancel:
+                dismiss();
+                break;
+            default:
+                break;
+        }
     }
 }

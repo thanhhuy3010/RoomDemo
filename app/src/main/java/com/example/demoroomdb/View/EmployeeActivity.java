@@ -54,12 +54,7 @@ public class EmployeeActivity extends AppCompatActivity {
             mRecyclerView.setAdapter(mAdapter);
 
         employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
-        employeeViewModel.getAllEmployee().observe(this, new Observer<List<Employee>>() {
-            @Override
-            public void onChanged(List<Employee> employees) {
-                mAdapter.setEmployee(employees);
-            }
-        });
+        employeeViewModel.getAllEmployee().observe(this, employees -> mAdapter.setEmployee(employees));
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
             @Override
