@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.ViewModel.EmployeeViewModel;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,9 +51,13 @@ public class EmployeeActivity extends AppCompatActivity {
         mAdapter = new ListAdapter(this.getApplicationContext(), mEmployees);
             // Connect the adapter with the RecyclerView.
             // Give the RecyclerView a default layout manager.
-            mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            mRecyclerView.setLayoutManager(layoutManager);
             mRecyclerView.setHasFixedSize(true);
             mRecyclerView.setAdapter(mAdapter);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
+                layoutManager.getOrientation());
+        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
         employeeViewModel.getAllEmployee().observe(this, employees -> mAdapter.setEmployee(employees));
@@ -74,6 +80,24 @@ public class EmployeeActivity extends AppCompatActivity {
         });
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.menu_list:
+                    Toast.makeText(getApplicationContext(), "Click list fragment",Toast.LENGTH_SHORT).show();
+                case R.id.menu_scanner:
+                    Toast.makeText(getApplicationContext(), "Click list fragment",Toast.LENGTH_SHORT).show();
+                case R.id.menu_more:
+                    Toast.makeText(getApplicationContext(), "Click list fragment",Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        }
+
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
