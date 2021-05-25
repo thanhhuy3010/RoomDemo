@@ -47,7 +47,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public int getItemCount() {
-        Log.d("Adapter", "List size " + itemColumn.size());
         return itemColumn.size();
     }
 

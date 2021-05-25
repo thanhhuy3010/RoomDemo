@@ -2,7 +2,9 @@ package com.example.demoroomdb.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -23,81 +25,34 @@ import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.ViewModel.EmployeeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class EmployeeActivity extends AppCompatActivity {
-    private LoggerManager log;
-    private RecyclerView mRecyclerView;
+public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-//    mock data tu DB len
-    EmployeeViewModel employeeViewModel;
-    private ListAdapter mAdapter;
-    private final List<Employee> mEmployees = new LinkedList<>();
+    private LoggerManager log;
     private final String TAG = EmployeeActivity.class.getSimpleName();
+    private BaseFragment fragment;
+    private final FragmentManager fragmentManager = getSupportFragmentManager();
+    private FragmentTransaction fragmentTransaction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
         log = LoggerManager.getInstance(getApplicationContext());
         log.Debug(TAG, "On create home page");
-
-        /**
-         * RecyclerView find id, setting layout.
-         */
-        mRecyclerView = findViewById(R.id.recyclerview);
-
-        mAdapter = new ListAdapter(this.getApplicationContext(), mEmployees);
-            // Connect the adapter with the RecyclerView.
-            // Give the RecyclerView a default layout manager.
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-            mRecyclerView.setLayoutManager(layoutManager);
-            mRecyclerView.setHasFixedSize(true);
-            mRecyclerView.setAdapter(mAdapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
-
-        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
-        employeeViewModel.getAllEmployee().observe(this, employees -> mAdapter.setEmployee(employees));
-
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
-            @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
-                                  @NonNull RecyclerView.ViewHolder viewHolder,
-                                  @NonNull RecyclerView.ViewHolder target) {
-                return false;
-            }
-
-            @Override
-            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                int position = viewHolder.getAdapterPosition();
-                Employee employee = mAdapter.getPosition(position);
-                Toast.makeText(getApplicationContext(), "Delete success user: " + employee.getIdUser(),Toast.LENGTH_SHORT).show();
-                employeeViewModel.delete(employee);
-            }
-        });
-        itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, ListFragment.newInstance("LIST-FRAG"));
+        fragmentTransaction.commit();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.menu_list:
-                    Toast.makeText(getApplicationContext(), "Click list fragment",Toast.LENGTH_SHORT).show();
-                case R.id.menu_scanner:
-                    Toast.makeText(getApplicationContext(), "Click list fragment",Toast.LENGTH_SHORT).show();
-                case R.id.menu_more:
-                    Toast.makeText(getApplicationContext(), "Click list fragment",Toast.LENGTH_SHORT).show();
-            }
-            return true;
-        }
-
-    };
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -123,8 +78,27 @@ public class EmployeeActivity extends AppCompatActivity {
     }
 
     private void onOpenDialog() {
-        FragmentManager fragmentManager = getSupportFragmentManager();
         DialogAddContact addContact = DialogAddContact.newInstance("Adding Contact");
         addContact.show(fragmentManager,addContact.TAG);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_list:
+                fragment = ListFragment.newInstance("LIST");
+                break;
+            case R.id.menu_scanner:
+                Toast.makeText(getApplicationContext(), "Click scanner fragment",Toast.LENGTH_SHORT).show();
+                fragment = CameraFragment.newInstance("CAMERA");
+                break;
+            case R.id.menu_more:
+                Toast.makeText(getApplicationContext(), "Click setting fragment",Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+        fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragment);
+        fragmentTransaction.commit();
+        return true;
     }
 }

@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:id="@+id/menu_list"
-        android:title="@string/addItem"
+        android:title="@string/list"
         android:orderInCategory="1"/>
 
     <item android:id="@+id/menu_scanner"
-        android:title="@string/setting"
+        android:title="@string/scanner"
         android:orderInCategory="2"/>
 
     <item android:id="@+id/menu_more"
