@@ -1,7 +1,6 @@
-package com.example.demoroomdb.View;
+package com.example.demoroomdb.view;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

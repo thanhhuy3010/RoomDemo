@@ -1,4 +1,4 @@
-package com.example.demoroomdb.View;
+package com.example.demoroomdb.view;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
-import com.example.demoroomdb.ViewModel.EmployeeViewModel;
+import com.example.demoroomdb.viewmodel.EmployeeViewModel;
 
 public class DialogAddContact extends DialogFragment implements View.OnClickListener {
     /**

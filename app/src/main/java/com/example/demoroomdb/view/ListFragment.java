@@ -1,4 +1,4 @@
-package com.example.demoroomdb.View;
+package com.example.demoroomdb.view;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demoroomdb.R;
-import com.example.demoroomdb.ViewModel.EmployeeViewModel;
+import com.example.demoroomdb.viewmodel.EmployeeViewModel;
 import com.example.demoroomdb.model.Entity.Employee;
 
 import java.util.LinkedList;

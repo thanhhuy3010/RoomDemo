@@ -10,7 +10,7 @@
         android:orderInCategory="2"/>
 
     <item android:id="@+id/menu_more"
-        android:title="@string/setting"
+        android:title="@string/notification"
         android:orderInCategory="3"/>
 
 </menu>

@@ -1,4 +1,4 @@
-package com.example.demoroomdb.View;
+package com.example.demoroomdb.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 

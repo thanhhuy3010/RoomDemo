@@ -2,7 +2,7 @@
 <menu
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".View.EmployeeActivity">
+    tools:context=".view.EmployeeActivity">
     <item android:id="@+id/add_item"
         android:title="@string/addItem"
         android:orderInCategory="1"/>

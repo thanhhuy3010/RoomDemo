@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "440678283224",
+    "project_id": "fcmproject-2cd8f",
+    "storage_bucket": "fcmproject-2cd8f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:440678283224:android:06416a150c664898b364ad",
+        "android_client_info": {
+          "package_name": "com.example.demoroomdb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "440678283224-ailgaikkjor8n0151qgcf0eos67f8cr2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPVWFN8juDV89bhTFFp7UVKtSn330dtmY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "440678283224-ailgaikkjor8n0151qgcf0eos67f8cr2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

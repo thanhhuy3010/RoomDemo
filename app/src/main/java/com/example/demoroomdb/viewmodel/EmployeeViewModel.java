@@ -1,4 +1,4 @@
-package com.example.demoroomdb.ViewModel;
+package com.example.demoroomdb.viewmodel;
 
 import android.app.Application;
 

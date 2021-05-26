@@ -1,16 +1,9 @@
-package com.example.demoroomdb.View;
+package com.example.demoroomdb.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,14 +14,9 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.demoroomdb.model.Common.Logger.LoggerManager;
-import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
-import com.example.demoroomdb.ViewModel.EmployeeViewModel;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 

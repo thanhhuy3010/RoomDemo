@@ -35,5 +35,6 @@
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
     <string name="scanner">Camera</string>
     <string name="list">List</string>
+    <string name="notification">Notification</string>
 
 </resources>
