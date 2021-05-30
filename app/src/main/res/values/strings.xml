@@ -36,5 +36,7 @@
     <string name="scanner">Camera</string>
     <string name="list">List</string>
     <string name="notification">Notification</string>
+    <string name="default_notification_channel_id">New Notice</string>
+    <string name="default_notification_channel_name">Default Name</string>
 
 </resources>

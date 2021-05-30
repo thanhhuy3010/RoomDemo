@@ -5,7 +5,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -15,8 +18,11 @@ import android.widget.Toast;
 
 import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
@@ -25,6 +31,19 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     private BaseFragment fragment;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
+
+    private void setPermission () {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create channel to show notifications.
+            String channelId  = getString(R.string.default_notification_channel_id);
+            String channelName = getString(R.string.default_notification_channel_name);
+            NotificationManager notificationManager =
+                    getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(new NotificationChannel(channelId,
+                    channelName, NotificationManager.IMPORTANCE_LOW));
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,11 +54,23 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
         fragmentTransaction.commit();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        setPermission();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.d(TAG, "Receive Failed Notification : " + task.getException());
+                return;
+            }
+            String token = task.getResult();
+            Log.d(TAG, "Receive data Notification : " + task.getException());
+
+            Toast.makeText(EmployeeActivity.this,"Token : " + token, Toast.LENGTH_SHORT).show();
+        });
     }
 
     @Override
@@ -82,8 +113,10 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.menu_more:
                 Toast.makeText(getApplicationContext(), "Click setting fragment",Toast.LENGTH_SHORT).show();
+                fragment = CameraFragment.newInstance("CAMERA");
                 break;
-
+            default:
+                break;
         }
         fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragment);
         fragmentTransaction.commit();
