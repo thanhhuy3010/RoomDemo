@@ -32,11 +32,16 @@ public class MainActivity extends AppCompatActivity {
         configSharedPref = ConfigSharedPref.getInstance(getApplicationContext());
         logger.Debug(TAG, "onCreate app...");
         setContentView(R.layout.activity_main);
+//        getSupportActionBar().hide();
+        initField();
+        loginHandler();
+    }
+
+    private void initField() {
         tvError = findViewById(R.id.tv_Error);
         edtUsername = findViewById(R.id.edt_username);
         edtPassword = findViewById(R.id.edt_password);
         btnLogin = findViewById(R.id.btn_login);
-        loginHandler();
     }
 
     private void loginHandler() {

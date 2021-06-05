@@ -68,6 +68,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
             }
             String token = task.getResult();
             Log.d(TAG, "Receive data Notification : " + task.getException());
+            Log.d(TAG, "Token : " + token);
 
             Toast.makeText(EmployeeActivity.this,"Token : " + token, Toast.LENGTH_SHORT).show();
         });
