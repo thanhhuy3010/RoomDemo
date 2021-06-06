@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        if (configSharedPref.getBooleanData("KEY_LOGIN")) {
+        if (configSharedPref.getBooleanData("KEY_LOGIN") == true) {
             startEmployeeActivity();
             finish();
         }
