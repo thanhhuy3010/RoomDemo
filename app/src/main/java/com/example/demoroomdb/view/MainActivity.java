@@ -6,15 +6,20 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demoroomdb.model.Common.SharePreference.ConfigSharedPref;
 import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtUsername, edtPassword;
     private TextView tvError;
 
+    private FirebaseAuth mFirebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,17 +41,19 @@ public class MainActivity extends AppCompatActivity {
         configSharedPref = ConfigSharedPref.getInstance(getApplicationContext());
         logger.Debug(TAG, "onCreate app...");
         setContentView(R.layout.activity_main);
+        mFirebaseAuth = FirebaseAuth.getInstance();
 //        getSupportActionBar().hide();
         initField();
+        FirebaseUser firebaseAuthCurrentUserUser = mFirebaseAuth.getCurrentUser();
+        Log.d(TAG, "Firebase user : " + firebaseAuthCurrentUserUser);
+        Log.d(TAG, "Firebase user account : " + firebaseAuthCurrentUserUser.getEmail());
+
         if (android.os.Build.VERSION.SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        if (configSharedPref.getBooleanData("KEY_LOGIN")) {
-            startEmployeeActivity();
-            finish();
-        }
+
         loginHandler();
     }
 
@@ -59,23 +68,46 @@ public class MainActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(v -> validateDataLogin());
     }
 
+//    private void validateDataLogin() {
+//        if (!edtUsername.getText().toString().trim().matches("admin")
+//                || !edtPassword.getText().toString().trim().matches("123")) {
+//            edtUsername.setError("Username is required");
+//            edtPassword.setError("Password is required");
+//            tvError.setVisibility(View.VISIBLE);
+//            tvError.setText(getResources().getString(R.string.dataError));
+//            isLoginValid = false;
+//        } else {
+//            isLoginValid = true;
+//            tvError.setVisibility(View.INVISIBLE);
+//            Toast.makeText(getApplicationContext(),
+//                    "Redirecting...",Toast.LENGTH_SHORT).show();
+//            startEmployeeActivity();
+//            configSharedPref.saveStringData("username", edtUsername.getText().toString());
+//            configSharedPref.saveStringData("password", edtPassword.getText().toString());
+//            configSharedPref.saveBooleanData("KEY_LOGIN",isLoginValid);
+//        }
+//    }
     private void validateDataLogin() {
-        if (!edtUsername.getText().toString().trim().matches("admin")
-                && !edtPassword.getText().toString().trim().matches("123")) {
-            tvError.setVisibility(View.VISIBLE);
-            tvError.setText(getResources().getString(R.string.dataError));
-            isLoginValid = false;
-        } else {
-            isLoginValid = true;
-            tvError.setVisibility(View.INVISIBLE);
-            Toast.makeText(getApplicationContext(),
-                    "Redirecting...",Toast.LENGTH_SHORT).show();
-            startEmployeeActivity();
-            configSharedPref.saveStringData("username", edtUsername.getText().toString());
-            configSharedPref.saveStringData("password", edtPassword.getText().toString());
-            configSharedPref.saveBooleanData("KEY_LOGIN",isLoginValid);
-
+        if (edtUsername.getText().toString().trim().isEmpty()) {
+            edtUsername.setError("Username is required");
+            edtUsername.requestFocus();
+            return;
         }
+
+        if (!Patterns.EMAIL_ADDRESS.matcher(edtUsername.getText()).matches()) {
+            edtUsername.setError("Please input valid email !");
+            edtUsername.requestFocus();
+            return;
+        }
+
+        mFirebaseAuth.signInWithEmailAndPassword(edtUsername.getText().toString().trim()
+                , edtPassword.getText().toString().trim()).addOnCompleteListener( task -> {
+                    if (task.isSuccessful()) {
+                        startActivity(new Intent(this, EmployeeActivity.class));
+                    } else {
+                        Toast.makeText(MainActivity.this,getResources().getString(R.string.failed_login),Toast.LENGTH_SHORT).show();
+                    }
+        });
     }
 
     private void startEmployeeActivity() {
@@ -93,12 +125,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode) {
-            case RESULT_CANCELED:
-                finish();
-                break;
-        }
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//        switch (requestCode) {
+//            case RESULT_CANCELED:
+//                finish();
+//                break;
+//        }
+//    }
 }
