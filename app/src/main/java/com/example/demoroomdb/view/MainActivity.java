@@ -1,9 +1,11 @@
 package com.example.demoroomdb.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
     private ConfigSharedPref configSharedPref;
     private LoggerManager logger;
-    boolean isUsernameValid, isPasswordValid;
+    boolean isLoginValid;
 
     private Button btnLogin;
     private EditText edtUsername, edtPassword;
@@ -34,6 +36,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 //        getSupportActionBar().hide();
         initField();
+        if (android.os.Build.VERSION.SDK_INT > 8) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                    .permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+        if (configSharedPref.getBooleanData("KEY_LOGIN")) {
+            startEmployeeActivity();
+            finish();
+        }
         loginHandler();
     }
 
@@ -45,40 +56,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginHandler() {
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                validateDataLogin();
-            }
-        });
+        btnLogin.setOnClickListener(v -> validateDataLogin());
     }
 
     private void validateDataLogin() {
-        if (!edtUsername.getText().toString().matches("admin") ) {
+        if (!edtUsername.getText().toString().trim().matches("admin")
+                && !edtPassword.getText().toString().trim().matches("123")) {
             tvError.setVisibility(View.VISIBLE);
-            tvError.setError(getResources().getString(R.string.userNameError));
-            isUsernameValid = false;
+            tvError.setText(getResources().getString(R.string.dataError));
+            isLoginValid = false;
         } else {
-            isUsernameValid = true;
+            isLoginValid = true;
             tvError.setVisibility(View.INVISIBLE);
-        }
-
-        if (!edtPassword.getText().toString().matches("123") ) {
-            tvError.setVisibility(View.VISIBLE);
-            tvError.setError(getResources().getString(R.string.passwordError));
-            isPasswordValid = false;
-        } else {
-            isPasswordValid = true;
-            tvError.setVisibility(View.INVISIBLE);
-        }
-        if (isUsernameValid && isPasswordValid) {
             Toast.makeText(getApplicationContext(),
                     "Redirecting...",Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
-            intent.putExtra("username", edtUsername.getText().toString());
+            startEmployeeActivity();
             configSharedPref.saveStringData("username", edtUsername.getText().toString());
-            startActivity(intent);
+            configSharedPref.saveStringData("password", edtPassword.getText().toString());
+            configSharedPref.saveBooleanData("KEY_LOGIN",isLoginValid);
+
         }
+    }
+
+    private void startEmployeeActivity() {
+        Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -86,7 +88,17 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         if (configSharedPref.isConfigAvailable()) {
             edtUsername.setText(configSharedPref.getStringData("username"));
+            edtPassword.setText(configSharedPref.getStringData("password"));
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case RESULT_CANCELED:
+                finish();
+                break;
+        }
+    }
 }

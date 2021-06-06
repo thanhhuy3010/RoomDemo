@@ -100,6 +100,23 @@ public boolean isConfigAvailable() {
   }
 
   /**
+   * Save boolean data into SharedPreferences
+   * @param key
+   * @param value
+   */
+  public void saveBooleanData(String key, boolean value) {
+    Log.d(TAG, "saveBooleanData: [" + key + "] = " + value);
+    editor.putBoolean(key, value);
+    editor.apply();
+  }
+
+  public boolean getBooleanData(String key) {
+    boolean value = sharedPreferences.getBoolean(key, false);
+    Log.d(TAG, "getStringData from ["+ key + "] = " + value);
+    return value;
+  }
+
+  /**
    * Get text data from SharedPreferences by key
    * @param   key   key of data
    * @return  the corresponding data in String

@@ -62,8 +62,10 @@
     <TextView
         android:id="@+id/tv_Error"
         android:layout_marginTop="10dp"
-        android:textColor="@color/colorAccent"
+        android:textColor="@android:color/holo_red_dark"
+        android:text="@string/addItem"
         android:textAlignment="center"
+        android:textSize="14dp"
         android:visibility="invisible"
         android:layout_below="@+id/btn_login"
         android:layout_width="match_parent"

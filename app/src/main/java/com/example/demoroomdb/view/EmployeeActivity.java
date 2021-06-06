@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.R;
+import com.example.demoroomdb.model.Common.SharePreference.ConfigSharedPref;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -31,7 +32,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     private BaseFragment fragment;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
-
+    private ConfigSharedPref configSharedPref;
     private void setPermission () {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
@@ -48,7 +49,8 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
-        log = LoggerManager.getInstance(getApplicationContext());
+        configSharedPref = ConfigSharedPref.getInstance(this);
+        log = LoggerManager.getInstance(this);
         log.Debug(TAG, "On create home page");
         fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, ListFragment.newInstance("LIST-FRAG"));
         fragmentTransaction.commit();
@@ -90,6 +92,10 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.setting_item:
                 startActivity(new Intent(EmployeeActivity.this, SettingsActivity.class));
+                break;
+            case R.id.logout:
+
+                startActivityForResult(new Intent(this, MainActivity.class), Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 break;
             default:
                 break;
