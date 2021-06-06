@@ -94,7 +94,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(EmployeeActivity.this, SettingsActivity.class));
                 break;
             case R.id.logout:
-
+                configSharedPref.saveBooleanData("KEY_LOGIN", false);
                 startActivityForResult(new Intent(this, MainActivity.class), Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 break;
             default:
