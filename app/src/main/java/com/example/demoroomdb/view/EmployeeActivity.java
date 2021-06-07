@@ -85,6 +85,12 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.add_item:
@@ -95,7 +101,8 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 break;
             case R.id.logout:
                 configSharedPref.saveBooleanData("KEY_LOGIN", false);
-                startActivity(new Intent(this, MainActivity.class));
+                startActivity(new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                finish();
                 break;
             default:
                 break;
@@ -128,5 +135,12 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
         fragmentTransaction = getSupportFragmentManager().beginTransaction().replace(R.id.frame_fragment, fragment);
         fragmentTransaction.commit();
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(TAG,"Destroyed Employee");
+
     }
 }
