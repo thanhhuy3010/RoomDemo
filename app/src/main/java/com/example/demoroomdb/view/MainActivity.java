@@ -46,7 +46,9 @@ public class MainActivity extends AppCompatActivity {
         initField();
         FirebaseUser firebaseAuthCurrentUserUser = mFirebaseAuth.getCurrentUser();
         Log.d(TAG, "Firebase user : " + firebaseAuthCurrentUserUser);
-        Log.d(TAG, "Firebase user account : " + firebaseAuthCurrentUserUser.getEmail());
+        if (firebaseAuthCurrentUserUser != null) {
+            Log.d(TAG, "Firebase user account : " + firebaseAuthCurrentUserUser.getEmail());
+        }
 
         if (android.os.Build.VERSION.SDK_INT > 8) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
@@ -137,6 +139,7 @@ public class MainActivity extends AppCompatActivity {
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 //        super.onActivityResult(requestCode, resultCode, data);
+//        getIntent().getExtras();
 //        switch (requestCode) {
 //            case RESULT_CANCELED:
 //                finish();

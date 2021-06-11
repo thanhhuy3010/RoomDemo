@@ -23,6 +23,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -57,7 +58,6 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         setPermission();
-
     }
 
     @Override
@@ -100,7 +100,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(EmployeeActivity.this, SettingsActivity.class));
                 break;
             case R.id.logout:
-                configSharedPref.saveBooleanData("KEY_LOGIN", false);
+//                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
                 break;

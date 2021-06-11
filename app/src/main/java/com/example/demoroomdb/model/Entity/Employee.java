@@ -4,8 +4,11 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import org.jetbrains.annotations.NotNull;
+
 @Entity(tableName = "employeeTable")
 public class Employee {
+    @NotNull
     @PrimaryKey(autoGenerate = true)
     private int idUser;
 
@@ -27,6 +30,9 @@ public class Employee {
     @ColumnInfo(name = "gender")
     private String gender;
 
+    @ColumnInfo(name = "datetime")
+    private String dateTime;
+
     private static Employee INSTANCE;
 
     public Employee(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
@@ -36,6 +42,7 @@ public class Employee {
         this.role = role;
         this.age = age;
         this.gender = gender;
+        this.dateTime = "1/1/2020";
     }
 
     public static synchronized Employee getInstance(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
@@ -43,6 +50,14 @@ public class Employee {
             INSTANCE = new Employee(userName, fullName, phoneNumber,role, age, gender);
         }
         return INSTANCE;
+    }
+
+    public String getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(String dateTime) {
+        this.dateTime = dateTime;
     }
 
     public int getIdUser() {

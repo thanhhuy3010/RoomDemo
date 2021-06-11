@@ -8,19 +8,27 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.demoroomdb.model.DAO.EmployeeDao;
 import com.example.demoroomdb.model.Entity.Employee;
 
-@Database(entities = {Employee.class}, version = 1,exportSchema = false)
+@Database(entities = {Employee.class}, version = 2,exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
+
+    static Migration migration = new Migration(1,2) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            database.execSQL("ALTER TABLE employeeTable ADD COLUMN datetime TEXT DEFAULT ''");
+        }
+    };
+
     private static AppDatabase INSTANCE;
     public abstract EmployeeDao employeeDao();
     public static synchronized AppDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class,"appDB.db")
-                    .fallbackToDestructiveMigration().build();
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class,"appDB.db").addMigrations(migration).build();
         }
         return INSTANCE;
     }
