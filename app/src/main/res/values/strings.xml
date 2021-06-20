@@ -5,7 +5,7 @@
     <string name="hint_port">Tablet Port</string>
     <string name="hint_ipaddress">IP Address</string>
     <string name="hint_name">Full Name</string>
-    <string name="username">"Username "</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="login">Login</string>
     <string name="dataError">Please input Username and Password</string>
@@ -47,5 +47,8 @@
     <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
     <string name="logout">Logout</string>
     <string name="failed_login">Login failed ! Please check your credentials</string>
+    <string name="register">Register</string>
+    <string name="account_created">Create new account !?</string>
+    <string name="full_name">Full name</string>
 
 </resources>

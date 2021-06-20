@@ -1,6 +1,7 @@
 package com.example.demoroomdb.view;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,6 +13,7 @@ import com.example.demoroomdb.R;
 public class SplashActivity extends AppCompatActivity {
     private static final String KEY_ACTIVITY_CREATE_ONCE = "SplashActivityCreatedOnce";
     private static final String TAG = SplashActivity.class.getSimpleName();
+    private static final int LOGIN_ACTIVITY_REQUEST_CODE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 try {
-                    sleep(1500);
+                    sleep(1000);
                     startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     finish();
                 } catch (Exception e) {

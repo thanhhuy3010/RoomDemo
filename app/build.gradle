@@ -38,11 +38,11 @@ dependencies {
     implementation "androidx.room:room-guava:$room_version"
     // firebase
     implementation platform('com.google.firebase:firebase-bom:28.0.1')
-    // Add the dependency for the Firebase SDK for Google Analytics
-    // When using the BoM, don't specify versions in Firebase dependencies
+
     implementation 'com.google.firebase:firebase-auth'
     implementation 'com.google.firebase:firebase-messaging:22.0.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+    implementation 'com.google.firebase:firebase-database'
     implementation 'com.facebook.android:facebook-android-sdk:4.42.0'
     // Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
@@ -57,7 +57,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-
-
+    implementation "androidx.viewpager2:viewpager2:1.0.0"
 }
 apply plugin: 'com.google.gms.google-services'

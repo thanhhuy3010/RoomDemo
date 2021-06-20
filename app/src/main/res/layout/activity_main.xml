@@ -1,24 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
     tools:context=".view.MainActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/edt_username"
+        android:layout_above="@+id/edit_mail"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="18dp"
         android:text="@string/login"
         android:textAlignment="center"
-        android:textSize="50dp" />
+        android:textSize="50sp" />
 
     <EditText
-        android:id="@+id/edt_username"
+        android:id="@+id/edit_mail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_above="@id/edt_password"
@@ -59,16 +57,21 @@
         android:backgroundTint="@color/colorAccent"
         android:text="@string/login"
         android:textColor="@android:color/background_light" />
+
     <TextView
-        android:id="@+id/tv_Error"
-        android:layout_marginTop="10dp"
-        android:textColor="@android:color/holo_red_dark"
-        android:text="@string/addItem"
-        android:textAlignment="center"
-        android:textSize="14dp"
-        android:visibility="invisible"
+        android:id="@+id/tv_register_account"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/btn_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_alignStart="@+id/btn_login"
+        android:layout_alignEnd="@+id/btn_login"
+        android:layout_marginStart="-30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="-30dp"
+        android:text="@string/account_created"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textSize="16sp" />
+
 
 </RelativeLayout>

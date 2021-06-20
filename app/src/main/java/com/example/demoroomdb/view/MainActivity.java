@@ -1,6 +1,5 @@
 package com.example.demoroomdb.view;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,7 +10,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,28 +24,27 @@ public class MainActivity extends AppCompatActivity {
     private final String TAG = MainActivity.class.getSimpleName();
     private ConfigSharedPref configSharedPref;
     private LoggerManager logger;
-    boolean isLoginValid;
-
     private Button btnLogin;
     private EditText edtUsername, edtPassword;
-    private TextView tvError;
+    private TextView tvSignup;
 
     private FirebaseAuth mFirebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logger = LoggerManager.getInstance(getApplicationContext());
-        configSharedPref = ConfigSharedPref.getInstance(getApplicationContext());
-        logger.Debug(TAG, "onCreate app...");
         setContentView(R.layout.activity_main);
+        initField();
+
         mFirebaseAuth = FirebaseAuth.getInstance();
 //        getSupportActionBar().hide();
-        initField();
+
         FirebaseUser firebaseAuthCurrentUserUser = mFirebaseAuth.getCurrentUser();
-        Log.d(TAG, "Firebase user : " + firebaseAuthCurrentUserUser);
+
         if (firebaseAuthCurrentUserUser != null) {
             Log.d(TAG, "Firebase user account : " + firebaseAuthCurrentUserUser.getEmail());
+            startEmployeeActivity();
+            finish();
         }
 
         if (android.os.Build.VERSION.SDK_INT > 8) {
@@ -55,44 +52,24 @@ public class MainActivity extends AppCompatActivity {
                     .permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-//        if (configSharedPref.getBooleanData("KEY_LOGIN") == true) {
-//            startEmployeeActivity();
-//            finish();
-//        }
 
         loginHandler();
+        registeredAccount();
     }
 
     private void initField() {
-        tvError = findViewById(R.id.tv_Error);
-        edtUsername = findViewById(R.id.edt_username);
+        edtUsername = findViewById(R.id.edit_mail);
         edtPassword = findViewById(R.id.edt_password);
         btnLogin = findViewById(R.id.btn_login);
+        tvSignup = findViewById(R.id.tv_register_account);
     }
 
     private void loginHandler() {
         btnLogin.setOnClickListener(v -> validateDataLogin());
     }
 
-//    private void validateDataLogin() {
-//        if (!edtUsername.getText().toString().trim().matches("admin")
-//                || !edtPassword.getText().toString().trim().matches("123")) {
-//            edtUsername.setError("Username is required");
-//            edtPassword.setError("Password is required");
-//            tvError.setVisibility(View.VISIBLE);
-//            tvError.setText(getResources().getString(R.string.dataError));
-//            isLoginValid = false;
-//        } else {
-//            isLoginValid = true;
-//            tvError.setVisibility(View.INVISIBLE);
-//            Toast.makeText(getApplicationContext(),
-//                    "Redirecting...",Toast.LENGTH_SHORT).show();
-//            startEmployeeActivity();
-//            configSharedPref.saveStringData("username", edtUsername.getText().toString());
-//            configSharedPref.saveStringData("password", edtPassword.getText().toString());
-//            configSharedPref.saveBooleanData("KEY_LOGIN",isLoginValid);
-//        }
-//    }
+    private void registeredAccount() { tvSignup.setOnClickListener( view -> startRegisteredActivity()); }
+
     private void validateDataLogin() {
         if (edtUsername.getText().toString().trim().isEmpty()) {
             edtUsername.setError("Username is required");
@@ -109,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mFirebaseAuth.signInWithEmailAndPassword(edtUsername.getText().toString().trim()
                 , edtPassword.getText().toString().trim()).addOnCompleteListener( task -> {
                     if (task.isSuccessful()) {
-                        startActivity(new Intent(this, EmployeeActivity.class));
+                        startEmployeeActivity();
                     } else {
                         Toast.makeText(MainActivity.this,getResources().getString(R.string.failed_login),Toast.LENGTH_SHORT).show();
                     }
@@ -118,16 +95,21 @@ public class MainActivity extends AppCompatActivity {
 
     private void startEmployeeActivity() {
         Intent intent = new Intent(MainActivity.this, EmployeeActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        intent = null;
+        finish();
+    }
+
+    private void startRegisteredActivity() {
+        Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+        startActivity(intent);
+        intent = null;
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if (configSharedPref.isConfigAvailable()) {
-            edtUsername.setText(configSharedPref.getStringData("username"));
-            edtPassword.setText(configSharedPref.getStringData("password"));
-        }
     }
 
     @Override
@@ -136,14 +118,4 @@ public class MainActivity extends AppCompatActivity {
         finishAffinity();
     }
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        getIntent().getExtras();
-//        switch (requestCode) {
-//            case RESULT_CANCELED:
-//                finish();
-//                break;
-//        }
-//    }
 }

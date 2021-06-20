@@ -2,6 +2,7 @@ package com.example.demoroomdb.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -14,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.demoroomdb.model.Common.Logger.LoggerManager;
@@ -24,16 +26,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private LoggerManager log;
     private final String TAG = EmployeeActivity.class.getSimpleName();
     private BaseFragment fragment;
     private final FragmentManager fragmentManager = getSupportFragmentManager();
     private FragmentTransaction fragmentTransaction;
-    private ConfigSharedPref configSharedPref;
+    Toolbar toolbar;
+    TextView tvUserName;
+    DatabaseReference reference;
+    FirebaseUser firebaseUser;
+
     private void setPermission () {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
@@ -50,9 +57,11 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
-        configSharedPref = ConfigSharedPref.getInstance(this);
-        log = LoggerManager.getInstance(this);
-        log.Debug(TAG, "On create home page");
+        tvUserName = findViewById(R.id.usernameonmainactivity);
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, ListFragment.newInstance("LIST-FRAG"));
         fragmentTransaction.commit();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -71,8 +80,6 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
             String token = task.getResult();
             Log.d(TAG, "Receive data Notification : " + task.getException());
             Log.d(TAG, "Token : " + token);
-
-            Toast.makeText(EmployeeActivity.this,"Token : " + token, Toast.LENGTH_SHORT).show();
         });
     }
 
@@ -100,7 +107,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 startActivity(new Intent(EmployeeActivity.this, SettingsActivity.class));
                 break;
             case R.id.logout:
-//                FirebaseAuth.getInstance().signOut();
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(this, MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
                 finish();
                 break;
@@ -122,11 +129,9 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 fragment = ListFragment.newInstance("LIST");
                 break;
             case R.id.menu_scanner:
-                Toast.makeText(getApplicationContext(), "Click scanner fragment",Toast.LENGTH_SHORT).show();
                 fragment = CameraFragment.newInstance("CAMERA");
                 break;
             case R.id.menu_more:
-                Toast.makeText(getApplicationContext(), "Click setting fragment",Toast.LENGTH_SHORT).show();
                 fragment = CameraFragment.newInstance("CAMERA");
                 break;
             default:

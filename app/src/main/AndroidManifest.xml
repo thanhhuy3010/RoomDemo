@@ -3,10 +3,10 @@
     package="com.example.demoroomdb">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -15,15 +15,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
             android:name=".view.SplashActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
-
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".view.MessagingActivity"
+            android:parentActivityName=".view.EmployeeActivity"></activity>
+
+        <activity
+            android:name=".view.RegisterActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <activity
+            android:name=".view.MainActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar" />
+        <activity android:name=".view.EmployeeActivity" />
+
+        <activity
+            android:name=".view.SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".view.EmployeeActivity" />
+
         <service
             android:name=".services.ReceiveMessageService"
             android:enabled="true"
@@ -46,17 +64,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
-
-        <activity
-            android:name=".view.SettingsActivity"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".view.EmployeeActivity" />
-
-        <activity android:name=".view.EmployeeActivity" />
-
-        <activity android:name=".view.MainActivity"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-
     </application>
 
 </manifest>

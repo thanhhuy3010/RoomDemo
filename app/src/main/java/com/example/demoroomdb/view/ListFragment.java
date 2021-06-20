@@ -69,15 +69,11 @@ public class ListFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView = view.findViewById(R.id.recyclerview);
         mAdapter = new ListAdapter(getContext(), mEmployees);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapter);
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
-                layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(dividerItemDecoration);
 
         employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
         employeeViewModel.getAllEmployee().observe(getViewLifecycleOwner(), employees -> mAdapter.setEmployee(employees));

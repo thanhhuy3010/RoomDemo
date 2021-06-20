@@ -4,13 +4,14 @@
     <color name="medium_green">#3d853e</color>
     <color name="light_green">#3c2ae668</color>
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:dialogTheme">@style/AppDialogTheme</item>
     </style>
+
     <style name="tablet_title">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_marginBottom">8dp</item>
@@ -34,11 +35,13 @@
         <item name="android:background">@color/colorPrimaryDark</item>
         <item name="android:textAppearance">@style/DialogWindowTitleText</item>
     </style>
+
     <style name="TextNavigationBarCustom">
         <item name="android:background">@android:color/holo_blue_dark</item>
 
         <item name="android:textColor">@android:color/white</item>
     </style>
+
     <style name="DialogWindowTitleText" parent="@android:style/TextAppearance.DialogWindowTitle">
         <item name="android:textSize">26sp</item>
         <item name="android:gravity">center</item>
@@ -48,5 +51,11 @@
     <style name="NoTitleBar" parent="android:Theme.NoTitleBar">
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="MenuStyle" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:background">#FFFFFF</item>
+        <item name="android:textColor">@color/cardview_dark_background</item>
+    </style>
+
 
 </resources>
