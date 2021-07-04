@@ -13,7 +13,7 @@ public class Employee {
     private int idUser;
 
     @ColumnInfo(name = "username")
-    private String userName;
+    private String username;
 
     @ColumnInfo(name = "fullName")
     private String fullName;
@@ -30,20 +30,22 @@ public class Employee {
     @ColumnInfo(name = "gender")
     private String gender;
 
-    @ColumnInfo(name = "datetime")
-    private String dateTime;
+    @ColumnInfo(name = "email")
+    private String email;
 
     private static Employee INSTANCE;
 
     public Employee(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
-        this.userName = userName;
+        this.username = userName;
         this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.role = role;
         this.age = age;
         this.gender = gender;
-        this.dateTime = "1/1/2020";
+        this.email = "";
     }
+
+    public Employee(){}
 
     public static synchronized Employee getInstance(String userName, String fullName, String phoneNumber, String role, int age, String gender) {
         if ( INSTANCE == null) {
@@ -52,12 +54,12 @@ public class Employee {
         return INSTANCE;
     }
 
-    public String getDateTime() {
-        return dateTime;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDateTime(String dateTime) {
-        this.dateTime = dateTime;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public int getIdUser() {
@@ -68,12 +70,12 @@ public class Employee {
         this.idUser = idUser;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUsername() {
+        return username;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getFullName() {

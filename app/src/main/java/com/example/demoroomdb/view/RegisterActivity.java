@@ -65,10 +65,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String userId = firebaseUser.getUid();
                 databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
                 if (firebaseUser != null) {
+
                     HashMap<String,String> hashMap = new HashMap<>();
                     hashMap.put(ID, userId);
                     hashMap.put(USERNAME, username);
                     hashMap.put(EMAIL, email);
+
                     databaseReference.setValue(hashMap).addOnCompleteListener( RegisterActivity.this,taskComplete -> {
                         if (taskComplete.isSuccessful()) {
                             Log.d(TAG, "Add successfully: " + username);

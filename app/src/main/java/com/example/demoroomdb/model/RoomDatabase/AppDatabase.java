@@ -20,7 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
     static Migration migration = new Migration(1,2) {
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
-            database.execSQL("ALTER TABLE employeeTable ADD COLUMN datetime TEXT DEFAULT ''");
+            database.execSQL("ALTER TABLE employeeTable ADD COLUMN email TEXT DEFAULT ''");
         }
     };
 

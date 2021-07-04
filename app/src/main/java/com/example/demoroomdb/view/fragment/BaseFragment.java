@@ -1,4 +1,4 @@
-package com.example.demoroomdb.view;
+package com.example.demoroomdb.view.fragment;
 
 import android.content.Context;
 import android.os.Bundle;

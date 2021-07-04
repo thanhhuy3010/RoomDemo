@@ -50,5 +50,6 @@
     <string name="register">Register</string>
     <string name="account_created">Create new account !?</string>
     <string name="full_name">Full name</string>
+    <string name="message">Message</string>
 
 </resources>

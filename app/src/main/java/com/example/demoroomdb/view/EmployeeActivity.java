@@ -16,18 +16,21 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.R;
-import com.example.demoroomdb.model.Common.SharePreference.ConfigSharedPref;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
+import com.example.demoroomdb.model.Entity.Users;
+import com.example.demoroomdb.view.fragment.BaseFragment;
+import com.example.demoroomdb.view.fragment.CameraFragment;
+import com.example.demoroomdb.view.fragment.ListFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +60,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
+        setPermission();
         tvUserName = findViewById(R.id.usernameonmainactivity);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -66,7 +70,22 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
         fragmentTransaction.commit();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        setPermission();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Users users = snapshot.getValue(Users.class);
+                tvUserName.setText(users.getUsername());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override
@@ -129,8 +148,6 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 fragment = ListFragment.newInstance("LIST");
                 break;
             case R.id.menu_scanner:
-                fragment = CameraFragment.newInstance("CAMERA");
-                break;
             case R.id.menu_more:
                 fragment = CameraFragment.newInstance("CAMERA");
                 break;

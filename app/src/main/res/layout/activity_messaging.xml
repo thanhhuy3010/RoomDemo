@@ -1,9 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MessagingActivity">
+     <com.google.android.material.appbar.AppBarLayout
+         android:id="@+id/bar_layout"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+         <androidx.appcompat.widget.Toolbar
+             android:id="@+id/toolbar_message"
+             android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+             <TextView
+                 android:id="@+id/username_toolbar_message"
+                 android:layout_marginStart="25dp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:textColor="@android:color/white"
+                 android:textStyle="bold"/>
+
+         </androidx.appcompat.widget.Toolbar>
+
+     </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_messages"
+        android:layout_below="@id/bar_layout"
+        android:layout_above="@id/card"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <androidx.cardview.widget.CardView
+        android:layout_alignParentBottom="true"
+        app:cardCornerRadius="10dp"
+        android:id="@+id/card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/btn_camera_gallery"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:background="@android:drawable/ic_menu_camera" />
+
+            <EditText
+                android:id="@+id/edit_message"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:paddingStart="15dp"
+                android:background="@drawable/shape_bg"
+                android:hint="@string/message"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btn_send_message"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/ic_baseline_send_24"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

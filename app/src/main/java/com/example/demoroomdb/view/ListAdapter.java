@@ -1,6 +1,7 @@
 package com.example.demoroomdb.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +12,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
+import com.example.demoroomdb.model.Entity.Users;
 
 import java.util.List;
 
 public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder> {
-    private List<Employee> itemColumn;
+//    private List<Employee> itemColumn; TODO close Room DB
+
+    private List<Users> itemColumn;
     private LayoutInflater mInflater;
     private Context context;
+    private String friendId = null;
 
-    public ListAdapter(Context context, List<Employee> mFullName) {
+//    public ListAdapter(Context context, List<Employee> mFullName) {
+//        this.context = context;
+//        mInflater = LayoutInflater.from(context);
+//        this.itemColumn = mFullName;
+//    }
+
+    public ListAdapter(Context context, List<Users> usersList) {
         this.context = context;
         mInflater = LayoutInflater.from(context);
-        this.itemColumn = mFullName;
+        this.itemColumn = usersList;
     }
 
     /**
@@ -40,8 +51,11 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ListAdapter.ListViewHolder holder, int position) {
-        Employee mCurrent = itemColumn.get(position);
-        holder.tvItemFullname.setText(mCurrent.getFullName());
+//        Employee mCurrent = itemColumn.get(position);
+
+        Users mCurrent = itemColumn.get(position);
+        friendId = mCurrent.getId();
+        holder.tvItemFullname.setText(mCurrent.getUsername());
     }
 
     @Override
@@ -49,7 +63,12 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         return itemColumn.size();
     }
 
-    public Employee getPosition(int position) {
+//    public Employee getPosition(int position) {
+//        // Use that to access the affected item in mWordList.
+//        return itemColumn.get(position);
+//    }
+
+    public Users getPosition(int position) {
         // Use that to access the affected item in mWordList.
         return itemColumn.get(position);
     }
@@ -77,16 +96,18 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
             // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
             // Use that to access the affected item in mWordList.
-            Employee element = itemColumn.get(mPosition);
+            // Employee element = itemColumn.get(mPosition);
+            Users element = itemColumn.get(mPosition);
             // Change the word in the mWordList.
-            Toast.makeText(context,"Click Id: " + element.getFullName(), Toast.LENGTH_SHORT).show();
-            // Notify the adapter, that the data has changed so it can
-            // update the RecyclerView to display the data.
+            Toast.makeText(context,"Click: " + element.getUsername(), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(context, MessagingActivity.class);
+            intent.putExtra("friendId", friendId);
+            context.startActivity(intent);
             mAdapter.notifyDataSetChanged();
         }
     }
-    public void setEmployee(List<Employee> employee) {
-        this.itemColumn = employee;
+    public void setEmployee(List<Users> users) {
+        this.itemColumn = users;
         notifyDataSetChanged();
     }
 
