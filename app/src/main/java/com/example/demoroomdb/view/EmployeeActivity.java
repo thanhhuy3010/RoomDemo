@@ -160,8 +160,23 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(TAG,"Pause Employee");
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG,"Stop Employee");
+
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
+
         Log.d(TAG,"Destroyed Employee");
 
     }

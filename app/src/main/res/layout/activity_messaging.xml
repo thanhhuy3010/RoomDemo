@@ -7,22 +7,44 @@
     tools:context=".view.MessagingActivity">
      <com.google.android.material.appbar.AppBarLayout
          android:id="@+id/bar_layout"
+         android:theme="@style/TopBar"
          android:layout_width="match_parent"
          android:layout_height="wrap_content">
 
          <androidx.appcompat.widget.Toolbar
+             app:title=""
              android:id="@+id/toolbar_message"
              android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
              android:layout_width="match_parent"
              android:layout_height="wrap_content">
 
-             <TextView
-                 android:id="@+id/username_toolbar_message"
-                 android:layout_marginStart="25dp"
+             <TextView android:id="@+id/title"
                  android:layout_width="wrap_content"
                  android:layout_height="wrap_content"
-                 android:textColor="@android:color/white"
-                 android:textStyle="bold"/>
+                 android:layout_gravity="start"
+                 android:textSize="18sp"
+                 android:fontFamily="sans-serif-medium"
+                 android:text="" />
+
+<!--             <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                 android:paddingEnd="@dimen/padding_end"-->
+<!--                 android:paddingBottom="@dimen/padding_bottom"-->
+<!--                 android:layout_width="wrap_content"-->
+<!--                 android:layout_gravity="end"-->
+<!--                 android:layout_height="wrap_content"-->
+<!--                 android:visibility="visible">-->
+
+<!--                 <TextView-->
+<!--                     android:id="@+id/elapsed_time"-->
+<!--                     android:layout_width="wrap_content"-->
+<!--                     android:layout_height="wrap_content"-->
+<!--                     android:text="0:00"-->
+<!--                     android:textSize="@dimen/text_large"-->
+<!--                     app:layout_constraintEnd_toEndOf="parent"-->
+<!--                     app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--             </androidx.constraintlayout.widget.ConstraintLayout>-->
+
 
          </androidx.appcompat.widget.Toolbar>
 
@@ -71,7 +93,7 @@
                 android:layout_margin="10dp"
                 android:layout_gravity="center"
                 android:background="@drawable/ic_baseline_send_24"
-                android:visibility="gone" />
+                android:enabled="false" />
 
         </LinearLayout>
 
