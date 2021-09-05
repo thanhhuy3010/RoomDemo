@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.example.demoroomdb.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MessagingActivity extends AppCompatActivity {
     DatabaseReference reference;
@@ -30,6 +32,8 @@ public class MessagingActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvUsernameOnToolBar = findViewById(R.id.title);
         friendId = getIntent().getStringExtra("friendId");
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(friendId);
     }
 
 }
