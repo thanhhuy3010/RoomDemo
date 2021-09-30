@@ -35,6 +35,7 @@
         <activity
             android:name=".view.MainActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
         <activity android:name=".view.EmployeeActivity" />
 
         <activity

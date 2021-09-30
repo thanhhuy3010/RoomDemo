@@ -1,4 +1,4 @@
-package com.example.demoroomdb.view;
+package com.example.demoroomdb.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.demoroomdb.model.Entity.Employee;
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.model.Entity.Users;
+import com.example.demoroomdb.view.MessagingActivity;
 
 import java.util.List;
 
@@ -93,12 +93,8 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
 
         @Override
         public void onClick(View v) {
-            // Get the position of the item that was clicked.
             int mPosition = getLayoutPosition();
-            // Use that to access the affected item in mWordList.
-            // Employee element = itemColumn.get(mPosition);
             Users element = itemColumn.get(mPosition);
-            // Change the word in the mWordList.
             Toast.makeText(context,"Click: " + element.getUsername(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(context, MessagingActivity.class);
             intent.putExtra("friendId", friendId);

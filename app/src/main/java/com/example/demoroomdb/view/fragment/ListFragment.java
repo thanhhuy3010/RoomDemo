@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.model.Entity.Users;
-import com.example.demoroomdb.view.ListAdapter;
+import com.example.demoroomdb.view.adapter.ListAdapter;
 import com.example.demoroomdb.viewmodel.EmployeeViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
