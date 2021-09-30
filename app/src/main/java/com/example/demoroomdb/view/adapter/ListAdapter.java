@@ -36,12 +36,6 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
         this.itemColumn = usersList;
     }
 
-    /**
-     * This method is similar to the onCreate() method. It inflates the item layout, and returns a ViewHolder with the layout and the adapter.
-     * @param parent
-     * @param viewType
-     * @return
-     */
     @NonNull
     @Override
     public ListAdapter.ListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
