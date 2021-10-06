@@ -9,6 +9,9 @@ public class Chats {
         }
         return chats;
     }
+
+    public Chats() {}
+
     public Chats(String sender, String receiver, String message) {
         this.message = message;
         this.sender = sender;

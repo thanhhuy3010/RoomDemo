@@ -43,7 +43,7 @@ public class ListFragment extends BaseFragment {
     /**
      * Calling employee view model - create communicate between Model - View.
      */
-    EmployeeViewModel employeeViewModel;
+//    EmployeeViewModel employeeViewModel;
 
     /**
      * Create list adapter instance.
@@ -64,7 +64,7 @@ public class ListFragment extends BaseFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "Running to List Fragment");
-        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
+//        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
     }
 
     @Override

@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:id="@+id/menu_list"
-        android:title="@string/list"
+    <item android:id="@+id/menu_messages"
+        android:title="@string/list_message"
         android:orderInCategory="1"/>
 
-    <item android:id="@+id/menu_scanner"
-        android:title="@string/scanner"
+    <item android:id="@+id/menu_list"
+        android:title="@string/list_contact"
         android:orderInCategory="2"/>
 
     <item android:id="@+id/menu_more"
         android:title="@string/notification"
         android:orderInCategory="3"/>
-
 </menu>

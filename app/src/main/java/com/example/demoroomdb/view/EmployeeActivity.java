@@ -22,6 +22,7 @@ import com.example.demoroomdb.model.Entity.Users;
 import com.example.demoroomdb.view.fragment.BaseFragment;
 import com.example.demoroomdb.view.fragment.CameraFragment;
 import com.example.demoroomdb.view.fragment.ListFragment;
+import com.example.demoroomdb.view.fragment.MessagesFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +67,8 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment, ListFragment.newInstance("LIST-FRAG"));
+        fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment
+                , MessagesFragment.newInstance("MESSAGE-FRAG"));
         fragmentTransaction.commit();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
@@ -144,10 +146,12 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.menu_messages:
+                fragment = MessagesFragment.newInstance("MESSAGES");
+                break;
             case R.id.menu_list:
                 fragment = ListFragment.newInstance("LIST");
                 break;
-            case R.id.menu_scanner:
             case R.id.menu_more:
                 fragment = CameraFragment.newInstance("CAMERA");
                 break;

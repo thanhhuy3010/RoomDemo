@@ -26,7 +26,7 @@
     </com.google.android.material.appbar.MaterialToolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_messages"
+        android:id="@+id/recycler_view_messages"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_above="@id/card"
