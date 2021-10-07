@@ -6,9 +6,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,8 @@ import android.widget.TextView;
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.model.Entity.Chats;
 import com.example.demoroomdb.model.Entity.Users;
+import com.example.demoroomdb.utils.Defined;
+import com.example.demoroomdb.utils.Utils;
 import com.example.demoroomdb.view.adapter.MessageAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,6 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class MessagingActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
@@ -40,6 +45,7 @@ public class MessagingActivity extends AppCompatActivity {
     MessageAdapter messageAdapter;
     RecyclerView recyclerView;
     final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference();
+    Utils utils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class MessagingActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        utils = Utils.getInstance(this);
 
         tvUsernameOnToolBar = findViewById(R.id.title);
         edtMessage = findViewById(R.id.edit_message);
@@ -103,6 +110,22 @@ public class MessagingActivity extends AppCompatActivity {
             sendMessage(myId, friendId, message);
             edtMessage.getText().clear();
         });
+        toolbar.setNavigationOnClickListener(v -> {
+            startActivity(new Intent(MessagingActivity.this, EmployeeActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        utils.status(Defined.ACCOUNT_STATUS_ONLINE);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+//        utils.status(Defined.ACCOUNT_STATUS_OFFLINE);
+
     }
 
     private void readMessage(String myId, String friendId) {

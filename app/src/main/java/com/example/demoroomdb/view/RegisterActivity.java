@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.demoroomdb.R;
+import com.example.demoroomdb.utils.Defined;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -28,12 +29,12 @@ import java.util.HashMap;
 public class RegisterActivity extends AppCompatActivity {
     private static final String TAG = RegisterActivity.class.getSimpleName();
     private EditText edtUsername, editEmail, edtPassword;
-    private Button btnRegister;
-    private final String ID = "id";
-    private final String USERNAME = "username";
-    private final String EMAIL = "email";
-
-    private ConstraintLayout constraintLayout;
+    Button btnRegister;
+//    private final String ID = "id";
+//    private final String USERNAME = "username";
+//    private final String EMAIL = "email";
+//    private final String STATUS = "status";
+    ConstraintLayout constraintLayout;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
 
@@ -67,9 +68,10 @@ public class RegisterActivity extends AppCompatActivity {
                 if (firebaseUser != null) {
 
                     HashMap<String,String> hashMap = new HashMap<>();
-                    hashMap.put(ID, userId);
-                    hashMap.put(USERNAME, username);
-                    hashMap.put(EMAIL, email);
+                    hashMap.put(Defined.ID, userId);
+                    hashMap.put(Defined.USERNAME, username);
+                    hashMap.put(Defined.EMAIL, email);
+                    hashMap.put(Defined.STATUS, Defined.ACCOUNT_STATUS_OFFLINE);
 
                     databaseReference.setValue(hashMap).addOnCompleteListener( RegisterActivity.this,taskComplete -> {
                         if (taskComplete.isSuccessful()) {

@@ -1,8 +1,11 @@
 package com.example.demoroomdb.view.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -46,14 +49,14 @@ public class MessagesFragment extends BaseFragment {
     private List<ChatList> chatLists = new LinkedList<>();
     private List<Users> usersList = new LinkedList<>();
 
-    private com.example.demoroomdb.view.adapter.ListAdapter mAdapter;
+    private ListAdapter mAdapter;
 
     @Override
     protected int layoutResource() { return R.layout.fragment_messages; }
 
     public MessagesFragment() {}
 
-    public static MessagesFragment newInstance(String args) {
+    public static MessagesFragment newInstance(String args, Context context) {
         MessagesFragment messagesFragment = new MessagesFragment();
         Bundle bundle = new Bundle();
         bundle.putString(INSTANCE_VALUE, args);
@@ -66,13 +69,28 @@ public class MessagesFragment extends BaseFragment {
         Log.d(TAG, "Running to Messages Fragment");
     }
 
+    @Nullable
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        Log.d(TAG, "On Create View");
+
+        View view =  inflater.inflate(layoutResource(), container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view_messages);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         displayChatList();
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "On View Created");
+
+//        mRecyclerView = view.findViewById(R.id.recycler_view_messages);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mRecyclerView.setHasFixedSize(true);
+//        displayChatList();
 //        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
 //            @Override
 //            public boolean onMove(@NonNull RecyclerView recyclerView,
@@ -117,15 +135,14 @@ public class MessagesFragment extends BaseFragment {
                 usersList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users users = dataSnapshot.getValue(Users.class);
-
                     for (ChatList chatList: chatLists) {
                         if (users.getId().equals(chatList.getId())) {
                             usersList.add(users);
                         }
                     }
-                    mAdapter = new ListAdapter(getContext(), usersList);
-                    mRecyclerView.setAdapter(mAdapter);
                 }
+                mAdapter = new ListAdapter(getContext(), usersList, true);
+                mRecyclerView.setAdapter(mAdapter);
             }
 
             @Override

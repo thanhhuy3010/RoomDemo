@@ -75,21 +75,13 @@ public class ListFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "On Create View");
+        View view =  inflater.inflate(layoutResource(), container, false);
         mRecyclerView = view.findViewById(R.id.recyclerview);
 //        mAdapter = new ListAdapter(getContext(), mEmployees);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         displayUser();
-
-//        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
-//        employeeViewModel.getAllEmployee().observe(getViewLifecycleOwner(), employees -> mAdapter.setEmployee(employees));
-
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView,
@@ -108,6 +100,40 @@ public class ListFragment extends BaseFragment {
             }
         });
         itemTouchHelper.attachToRecyclerView(mRecyclerView);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Log.d(TAG, "On View Created");
+//        mRecyclerView = view.findViewById(R.id.recyclerview);
+////        mAdapter = new ListAdapter(getContext(), mEmployees);
+//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+//        mRecyclerView.setHasFixedSize(true);
+//        displayUser();
+//
+////        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
+////        employeeViewModel.getAllEmployee().observe(getViewLifecycleOwner(), employees -> mAdapter.setEmployee(employees));
+//
+//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
+//            @Override
+//            public boolean onMove(@NonNull RecyclerView recyclerView,
+//                                  @NonNull RecyclerView.ViewHolder viewHolder,
+//                                  @NonNull RecyclerView.ViewHolder target) {
+//                return false;
+//            }
+//
+//            @Override
+//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//                int position = viewHolder.getAdapterPosition();
+//                Users users = mAdapter.getPosition(position);
+//                Toast.makeText(getContext(), "Delete success user: " + users.getId(),Toast.LENGTH_SHORT).show();
+////                employeeViewModel.delete(users);
+//                mEmployees.remove(users);
+//            }
+//        });
+//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
 
     }
 
@@ -116,6 +142,7 @@ public class ListFragment extends BaseFragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mEmployees.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                     Users users = dataSnapshot.getValue(Users.class);
@@ -125,7 +152,7 @@ public class ListFragment extends BaseFragment {
                         mEmployees.add(users);
                     }
 
-                    mAdapter = new ListAdapter(getContext(), mEmployees);
+                    mAdapter = new ListAdapter(getContext(), mEmployees, true);
                     mRecyclerView.setAdapter(mAdapter);
                 }
             }

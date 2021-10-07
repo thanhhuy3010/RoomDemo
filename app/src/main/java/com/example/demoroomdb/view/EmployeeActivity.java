@@ -19,6 +19,8 @@ import android.widget.TextView;
 
 import com.example.demoroomdb.R;
 import com.example.demoroomdb.model.Entity.Users;
+import com.example.demoroomdb.utils.Defined;
+import com.example.demoroomdb.utils.Utils;
 import com.example.demoroomdb.view.fragment.BaseFragment;
 import com.example.demoroomdb.view.fragment.CameraFragment;
 import com.example.demoroomdb.view.fragment.ListFragment;
@@ -34,6 +36,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.util.HashMap;
+
 public class EmployeeActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private final String TAG = EmployeeActivity.class.getSimpleName();
@@ -44,6 +48,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     TextView tvUserName;
     DatabaseReference reference;
     FirebaseUser firebaseUser;
+    Utils utils;
 
     private void setPermission () {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -62,16 +67,21 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_employee);
         setPermission();
+        utils = Utils.getInstance(this);
         tvUserName = findViewById(R.id.usernameonmainactivity);
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-        fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment
-                , MessagesFragment.newInstance("MESSAGE-FRAG"));
-        fragmentTransaction.commit();
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        if (savedInstanceState == null) {
+            bottomNavigationView.setSelectedItemId(R.id.menu_messages);
+        }
+//        fragmentTransaction = getSupportFragmentManager().beginTransaction().add(R.id.frame_fragment
+//                , MessagesFragment.newInstance("MESSAGES", EmployeeActivity.this));
+//        fragmentTransaction.commit();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
@@ -81,13 +91,9 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
                 Users users = snapshot.getValue(Users.class);
                 tvUserName.setText(users.getUsername());
             }
-
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            public void onCancelled(@NonNull DatabaseError error) { }
         });
-
     }
 
     @Override
@@ -102,6 +108,14 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
             Log.d(TAG, "Receive data Notification : " + task.getException());
             Log.d(TAG, "Token : " + token);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(TAG, "on Resume");
+        status(Defined.ACCOUNT_STATUS_ONLINE);
+//        utils.status(Defined.ACCOUNT_STATUS_ONLINE);
     }
 
     @Override
@@ -147,7 +161,7 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_messages:
-                fragment = MessagesFragment.newInstance("MESSAGES");
+                fragment = MessagesFragment.newInstance("MESSAGES", EmployeeActivity.this);
                 break;
             case R.id.menu_list:
                 fragment = ListFragment.newInstance("LIST");
@@ -167,6 +181,15 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     protected void onPause() {
         super.onPause();
         Log.d(TAG,"Pause Employee");
+//        utils.status(Defined.ACCOUNT_STATUS_OFFLINE);
+        status(Defined.ACCOUNT_STATUS_OFFLINE);
+    }
+
+    private void status(String status) {
+        final DatabaseReference dbRef = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
+        HashMap<String, Object> statusMap = new HashMap<>();
+        statusMap.put("status", status);
+        dbRef.updateChildren(statusMap);
 
     }
 
@@ -174,14 +197,5 @@ public class EmployeeActivity extends AppCompatActivity implements NavigationVie
     protected void onStop() {
         super.onStop();
         Log.d(TAG,"Stop Employee");
-
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        Log.d(TAG,"Destroyed Employee");
-
     }
 }
