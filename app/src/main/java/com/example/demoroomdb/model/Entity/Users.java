@@ -1,13 +1,22 @@
 package com.example.demoroomdb.model.Entity;
 
 public class Users {
-    String id, username, email, status;
+    String id, username, email, status, imageURL;
 
-    public Users(String id, String username, String email, String status) {
+    public Users(String id, String username, String email, String status, String imageURL) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.status = status;
+        this.imageURL = imageURL;
+    }
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
     public String getStatus() {

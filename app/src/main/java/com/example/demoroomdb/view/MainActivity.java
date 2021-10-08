@@ -13,8 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.demoroomdb.model.Common.SharePreference.ConfigSharedPref;
-import com.example.demoroomdb.model.Common.Logger.LoggerManager;
 import com.example.demoroomdb.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,8 +20,6 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = MainActivity.class.getSimpleName();
-    private ConfigSharedPref configSharedPref;
-    private LoggerManager logger;
     private Button btnLogin;
     private EditText edtUsername, edtPassword;
     private TextView tvSignup;
@@ -46,12 +42,10 @@ public class MainActivity extends AppCompatActivity {
             startEmployeeActivity();
             finish();
         }
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
-        if (android.os.Build.VERSION.SDK_INT > 8) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
-                    .permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
 
         loginHandler();
         registeredAccount();

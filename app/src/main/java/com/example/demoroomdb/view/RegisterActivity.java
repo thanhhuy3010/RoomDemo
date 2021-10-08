@@ -59,7 +59,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btn_registered);
     }
 
-    private void register(final String username, String password,final String email) {
+    private void register(final String username, String password,final String email, String imageURL) {
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(RegisterActivity.this,task -> {
             if (task.isSuccessful()) {
                 FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -71,6 +71,7 @@ public class RegisterActivity extends AppCompatActivity {
                     hashMap.put(Defined.ID, userId);
                     hashMap.put(Defined.USERNAME, username);
                     hashMap.put(Defined.EMAIL, email);
+                    hashMap.put(Defined.AVATAR_URL, imageURL);
                     hashMap.put(Defined.STATUS, Defined.ACCOUNT_STATUS_OFFLINE);
 
                     databaseReference.setValue(hashMap).addOnCompleteListener( RegisterActivity.this,taskComplete -> {
@@ -115,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity {
             edtPassword.requestFocus();
             return;
         }
-        register(usName,password, email);
+        register(usName,password, email, "default");
 
 
     }

@@ -78,7 +78,6 @@ public class ListFragment extends BaseFragment {
         Log.d(TAG, "On Create View");
         View view =  inflater.inflate(layoutResource(), container, false);
         mRecyclerView = view.findViewById(R.id.recyclerview);
-//        mAdapter = new ListAdapter(getContext(), mEmployees);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
         displayUser();
@@ -107,34 +106,6 @@ public class ListFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "On View Created");
-//        mRecyclerView = view.findViewById(R.id.recyclerview);
-////        mAdapter = new ListAdapter(getContext(), mEmployees);
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-//        mRecyclerView.setHasFixedSize(true);
-//        displayUser();
-//
-////        employeeViewModel = new ViewModelProvider(this).get(EmployeeViewModel.class);
-////        employeeViewModel.getAllEmployee().observe(getViewLifecycleOwner(), employees -> mAdapter.setEmployee(employees));
-//
-//        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.LEFT) {
-//            @Override
-//            public boolean onMove(@NonNull RecyclerView recyclerView,
-//                                  @NonNull RecyclerView.ViewHolder viewHolder,
-//                                  @NonNull RecyclerView.ViewHolder target) {
-//                return false;
-//            }
-//
-//            @Override
-//            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-//                int position = viewHolder.getAdapterPosition();
-//                Users users = mAdapter.getPosition(position);
-//                Toast.makeText(getContext(), "Delete success user: " + users.getId(),Toast.LENGTH_SHORT).show();
-////                employeeViewModel.delete(users);
-//                mEmployees.remove(users);
-//            }
-//        });
-//        itemTouchHelper.attachToRecyclerView(mRecyclerView);
-
     }
 
     private void displayUser( ) {

@@ -38,18 +38,9 @@ public class Utils {
     public void status(String status) {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         reference = FirebaseDatabase.getInstance().getReference("Users").child(firebaseUser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 HashMap<String, Object> statusMap = new HashMap<>();
                 statusMap.put("status", status);
                 reference.updateChildren(statusMap);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
     }
 
 

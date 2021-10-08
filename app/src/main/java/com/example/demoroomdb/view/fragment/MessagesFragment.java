@@ -52,9 +52,12 @@ public class MessagesFragment extends BaseFragment {
     private ListAdapter mAdapter;
 
     @Override
-    protected int layoutResource() { return R.layout.fragment_messages; }
+    protected int layoutResource() {
+        return R.layout.fragment_messages;
+    }
 
-    public MessagesFragment() {}
+    public MessagesFragment() {
+    }
 
     public static MessagesFragment newInstance(String args, Context context) {
         MessagesFragment messagesFragment = new MessagesFragment();
@@ -63,6 +66,7 @@ public class MessagesFragment extends BaseFragment {
         messagesFragment.setArguments(bundle);
         return messagesFragment;
     }
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +78,7 @@ public class MessagesFragment extends BaseFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Log.d(TAG, "On Create View");
 
-        View view =  inflater.inflate(layoutResource(), container, false);
+        View view = inflater.inflate(layoutResource(), container, false);
         mRecyclerView = view.findViewById(R.id.recycler_view_messages);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         mRecyclerView.setHasFixedSize(true);
@@ -86,7 +90,6 @@ public class MessagesFragment extends BaseFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         Log.d(TAG, "On View Created");
-
 //        mRecyclerView = view.findViewById(R.id.recycler_view_messages);
 //        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 //        mRecyclerView.setHasFixedSize(true);
@@ -115,7 +118,7 @@ public class MessagesFragment extends BaseFragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 chatLists.clear();
-                for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     ChatList chatList = dataSnapshot.getValue(ChatList.class);
                     chatLists.add(chatList);
                 }
@@ -123,11 +126,12 @@ public class MessagesFragment extends BaseFragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
-    private void displayUser( ) {
+    private void displayUser() {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -135,7 +139,7 @@ public class MessagesFragment extends BaseFragment {
                 usersList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Users users = dataSnapshot.getValue(Users.class);
-                    for (ChatList chatList: chatLists) {
+                    for (ChatList chatList : chatLists) {
                         if (users.getId().equals(chatList.getId())) {
                             usersList.add(users);
                         }
@@ -146,7 +150,8 @@ public class MessagesFragment extends BaseFragment {
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) { }
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
         });
     }
 
